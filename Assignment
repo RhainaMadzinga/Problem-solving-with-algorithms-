@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Submission.java {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a single letter (lowercase or uppercase):");
+
+        String input = scanner.nextLine();
+
+        if (input.length() != 1) {
+            System.out.println("Please enter only a single letter.");
+            return;
+        }
+        char letter = Character.toLowerCase(input.charAt(0));
+
+        if (letter < 'a' || letter > 'z') {
+            System.out.println("Invalid input. Please enter a letter in the standard Latin alphabet.");
+            return;
+        }
+
+        int alphabeticalOrder = letter - 'a' + 1;
+        System.out.println("Alphabetical order of '" + letter + "' is: " + alphabeticalOrder);
+    }
+}
