@@ -1,0 +1,51 @@
+import java.util.Scanner;
+
+public class Submission {
+    public static int maxProfit(int n, int[][] grid) {
+        int[][] maxProfitGrid = new int[n][n];
+
+        System.arraycopy(grid[0], 0, maxProfitGrid[0], 0, n);
+
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                maxProfitGrid[i][j] = grid[i][j] + max(maxProfitGrid[i-1], j);
+            }
+        }
+
+        int maxProfit = 0;
+        for (int j = 0; j < n; j++) {
+            maxProfit = Math.max(maxProfit, maxProfitGrid[n-1][j]);
+        }
+        return maxProfit;
+    }
+
+    private static int max(int[] row, int j) {
+        int maxProfit = row[j];
+        if (j > 0) {
+            maxProfit = Math.max(maxProfit, row[j-1]);
+        }
+        if (j < row.length - 1) {
+            maxProfit = Math.max(maxProfit, row[j+1]);
+        }
+        return maxProfit;
+    }
+
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("Usage: java Submission <n>");
+            System.exit(1);
+        }
+
+        int n = Integer.parseInt(args[0]);
+        int[][] grid = new int[n][n];
+
+        Scanner scanner = new Scanner(System.in);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                grid[i][j] = scanner.nextInt();
+            }
+        }
+
+        System.out.println(maxProfit(n, grid));
+    }
+}
